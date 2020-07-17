@@ -53,10 +53,18 @@ function navToCurve(el, navSpace) {
     }
 }
 
+function headerImgCenter() {
+    var jzimg = document.getElementsByClassName("jzimg")[0]
+
+    var jzimgH = jzimg.getAttribute("height")
+
+    jzimg.setAttribute("y", (window.innerHeight/2-jzimgH)/2)
+    console.log((window.innerHeight/2-jzimgH)/2)
+    
+}
 
 
-
-
+headerImgCenter()
 
 
 
