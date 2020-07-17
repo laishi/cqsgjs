@@ -24,7 +24,17 @@ if (sUsrAg.indexOf("Firefox") > -1) {
   sBrowser = "Apple Safari";
   // "Mozilla/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.0 Mobile/15E148 Safari/604.1 980x1306"
 } else {
-  sBrowser = "unknown";
+  sBrowser = "android";
+}
+
+if (sBrowser == "android") {
+    var menu = document.querySelectorAll("menu")
+    for (let index = 0; index < menu.length; index++) {
+        const element = menu[index];
+
+        element.children[1] = "android"
+        
+    }
 }
 
 alert("You are using: " + sBrowser);
