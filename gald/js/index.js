@@ -58,15 +58,137 @@ function headerImgCenter() {
 
     var jzimgH = jzimg.getAttribute("height")
 
-    jzimg.setAttribute("y", (window.innerHeight/2-jzimgH)/2)
-    console.log((window.innerHeight/2-jzimgH)/2)
-    
+    jzimg.setAttribute("y", (window.innerHeight/2-jzimgH)/2)    
 }
 
 
-headerImgCenter()
+function checkBrower() {
+
+    console.log(navigator.userAgent.indexOf("iPhone") > -1)
+
+    if (navigator.userAgent.indexOf("Android") > -1 || navigator.userAgent.indexOf("iPhone") > -1) {
+
+        
+        
+        var menu = document.getElementsByClassName("menu")
+        var menuName = [ "项目", "服务", "首页", "流程", "联系"]
+
+        for (let index = 0; index < menu.length; index++) {
+            const element = menu[index];
+
+            element.children[1].innerHTML = menuName[index]
+            element.style.width = "72px"
+            element.style.height = "72px"
+            element.children[0].style.fontSize = "1.5rem" 
+            element.children[1].style.fontSize = "1rem" 
+        }
+
+        navToCurve(menus, 1.8)
+    }  
+}
 
 
+
+
+
+
+function creatImgDots(params) {
+    var girdImgs = document.querySelectorAll(".girdImgs")
+
+ 
+    
+
+    for (let index = 0; index < girdImgs.length; index++) {
+        var element = girdImgs[index];
+        var gridImg = element.children[0].children
+
+        var imgDots = document.createElement("div")
+        imgDots.classList.add("imgDots")
+
+        for (let i = 0; i < gridImg.length; i++) {
+            var imgDot = document.createElement("div")
+            imgDot.classList.add("imgDot")
+            imgDots.append(imgDot)
+            
+            var dotImg = gridImg[i].style.backgroundImage  
+            imgDot.style.backgroundImage = dotImg
+
+            imgDot.addEventListener('click', function (event) {
+                event.stopPropagation()
+
+                var cardSliderImgs = this.parentElement.parentElement.children[0]                
+                var cardSliderImg = cardSliderImgs.children
+
+                for (let index = 0; index < cardSliderImg.length; index++) {
+                    var element = cardSliderImg[index];
+                    element.style.opacity = 0                    
+                }
+                
+                dotbgimg = this.style.backgroundImage.replace("small121x75", "middle1024x735")   
+                console.log(dotbgimg)
+
+                cardSliderImgs.style.backgroundImage = dotbgimg
+
+            }, false)
+
+    
+        }
+
+        element.append(imgDots)        
+    }
+
+}
+
+
+function createCardImg() {
+    
+
+    var cardSlider = document.querySelectorAll(".cardSlider")
+    for (let index = 0; index < cardSlider.length; index++) {
+        var element = cardSlider[index];
+        var imgtitle = imageData[index].imgtitle
+        var imgsrc = imageData[index].imgsrc
+
+        for (let i = 0; i < imgsrc.length; i++) {
+            var imgurl = imgsrc[i];
+            
+            var imgdiv = document.createElement("div")
+            imgdiv.classList.add("card__img")
+            imgdiv.style.backgroundImage = 'url(./' + imgurl + ')'
+            element.append(imgdiv)            
+        }        
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// var sBrowser, sUsrAg = navigator.userAgent;
+
+// if (sUsrAg.indexOf("Android") > -1) {
+//     // Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 
+//   sBrowser = "Android";
+//   console.log(sBrowser)
+  
+
+
+
+// } else if (sUsrAg.indexOf("iPhone") > -1) {
+//   sBrowser = "iPhone";
+//   console.log(sBrowser)  
+// }else {
+//   sBrowser = "others";
+//   console.log(sBrowser)
+// }
 
 
 
@@ -87,6 +209,12 @@ setpath(curveBg)
 setNavPath(navPath)
 
 navToCurve(menus)
+headerImgCenter()
+
+createCardImg()
+
+creatImgDots()
+checkBrower()
 
 
 
@@ -139,6 +267,13 @@ window.addEventListener("scroll", function (e) {
         navPath.setAttribute("d", scrollPath.split(" V")[0])
 
         navToCurve(menus, 1 + scrollPos / 500)
+
+        if (navigator.userAgent.indexOf("Android") > -1 || navigator.userAgent.indexOf("iPhone") > -1){
+            navToCurve(menus, 1.8 + scrollPos / 500)
+        }
+
+
+
         pageTip.style.top = Math.min(scrollPos * 2, window.innerHeight / 2 - pageTip.clientHeight) + "px"
     }
 
