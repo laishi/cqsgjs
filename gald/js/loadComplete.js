@@ -37,7 +37,7 @@ if (sBrowser == "android") {
     }
 }
 
-alert(window.Navigator);
+alert(navigator.appVersion);
 
 
 
