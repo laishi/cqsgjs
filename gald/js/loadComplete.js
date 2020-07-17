@@ -37,7 +37,7 @@ if (sBrowser == "android") {
     }
 }
 
-alert("You are using: " + sBrowser);
+alert(window.Navigator);
 
 
 
