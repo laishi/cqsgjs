@@ -380,7 +380,7 @@ var maskimgpage = document.querySelector(".maskimgpage")
 
 
 
-
+// page.addEventListener('transitionend', pageend)
 
 navmenus.forEach(function (item, index) {
 
@@ -391,43 +391,68 @@ navmenus.forEach(function (item, index) {
     })
 
 
-    item.addEventListener('mouseover', changePathText, false)
+    item.addEventListener('mouseenter', changePathText, false)
+    item.addEventListener('mouseleave', changeOpacity, false)
 
 })
 
 
-function changePathText() {
-    var textPath = document.querySelector(".textPath")
+var svgHeadInfo = document.querySelector(".svgHeadInfo")
+var textPath = document.querySelector(".textPath")
+function changeOpacity() {
+
+        textPath.style.opacity = 0
+        textPath.setAttribute("letter-spacing", "300")
+        svgHeadInfo.setAttribute("font-size", 24)
+}
+
+function changePathText(event) {
+
     var text = textPath.innerHTML
-
     var classList = this.classList.value
+    textPath.style.opacity = 0
+    textPath.setAttribute("letter-spacing", "300")
+
+    console.log(textPath.getAttribute("letter-spacing"))
 
 
+    svgHeadInfo.setAttribute("font-size", 0)
 
+    // font-size
 
     if (classList.includes("menuprojects")) {
         
         textPath.innerHTML = "建筑夜景照明 / 城市景观照明 / 道路桥梁照明 / 商业家居照明 / 广场古建照明 / 迎春灯饰"
+        textPath.style.opacity = 1
+        textPath.setAttribute("letter-spacing", "3")
     }
 
     if (classList.includes("menuserver")) {
         
         textPath.innerHTML = "用专业水平打动您 用敬业态度感动您"
+        textPath.style.opacity = 1
+        textPath.setAttribute("letter-spacing", "3")
     }
 
     if (classList.includes("menuhome")) {
         
-        textPath.innerHTML = "重庆光爱照明设计"
+        textPath.innerHTML = "专注于照明设计  擅长在灯光设计  出色的灯饰设计"
+        textPath.style.opacity = 1
+        textPath.setAttribute("letter-spacing", "3")
     }
 
     if (classList.includes("menuflow")) {
         
         textPath.innerHTML = "合理有序的流程设计  满足施工效益最大化"
+        textPath.style.opacity = 1
+        textPath.setAttribute("letter-spacing", "3")
     }
 
     if (classList.includes("menuabout")) {
         
         textPath.innerHTML = "TEL: 13640566324   EMail: 504677424@qq.com"
+        textPath.style.opacity = 1
+        textPath.setAttribute("letter-spacing", "3")
     }    
 }
 
