@@ -64,7 +64,6 @@ function headerImgCenter() {
 
 function checkBrower() {
 
-    console.log(navigator.userAgent.indexOf("iPhone") > -1)
 
     if (navigator.userAgent.indexOf("Android") > -1 || navigator.userAgent.indexOf("iPhone") > -1) {
 
@@ -125,7 +124,7 @@ function creatImgDots(params) {
                 }
                 
                 dotbgimg = this.style.backgroundImage.replace("small121x75", "middle1024x735")   
-                console.log(dotbgimg)
+
 
                 cardSliderImgs.style.backgroundImage = dotbgimg
 
@@ -164,33 +163,41 @@ function createCardImg() {
 
 
 
+// var menu = document.querySelectorAll(".menu")
+// menu.forEach(function (item, index) {
+
+//     item.addEventListener("mouseenter", function () {
+//         if (item.classList.value.split(" ")[0] == "menu") {
+
+//             var pos = parseFloat(item.getBoundingClientRect().left)
+
+//             item.parentElement.firstChild
+
+
+            
+//             console.log("pos: " + pos)
+//             console.log("index: " + index)
+//         }
+//     })
+    
+// }, true);
 
 
 
 
+const dock = document.getElementById("menus")
+dock.addEventListener('mousemove', e => {
 
-
-
-
-// var sBrowser, sUsrAg = navigator.userAgent;
-
-// if (sUsrAg.indexOf("Android") > -1) {
-//     // Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 
-//   sBrowser = "Android";
-//   console.log(sBrowser)
-  
-
-
-
-// } else if (sUsrAg.indexOf("iPhone") > -1) {
-//   sBrowser = "iPhone";
-//   console.log(sBrowser)  
-// }else {
-//   sBrowser = "others";
-//   console.log(sBrowser)
-// }
-
-
+	let sum = 0
+	for (let c of dock.children) {
+		let { offsetLeft: x, clientWidth: w} = c
+		let val = Math.min(((1+Math.exp(-Math.abs(x-e.clientX+w/2)/72))*64|0)-64,32)
+		c.setAttribute('ratio', val)
+		sum += val
+	}
+	for (let c of dock.children)
+		c.style.width = c.style.height = (64 * (1 + c.getAttribute('ratio') / sum)) +'px'
+})
 
 
 
@@ -234,6 +241,10 @@ function reportWindowSize() {
     setpath(curveBg)
     setNavPath(navPath)
     navToCurve(menus)
+
+    if (window.innerWidth < 1000) {
+        navToCurve(menus, 1.8)
+    }
 }
 
 
@@ -290,43 +301,45 @@ var mousex = 0;
 var mousey = 0;
 
 
-svgheader.addEventListener('mousemove', function (event) {
+var eventDirectX = window.innerWidth / 2;
+var eventDirectY = window.innerHeight / 2;
 
+window.addEventListener('mousemove', function (e) {
 
-    mousex = event.offsetX - document.body.clientWidth / 2;
-    mousey = event.offsetY - window.innerHeight / 2;
+    var clipImage = document.querySelectorAll(".clipImg")
 
-    poselevel01 = clipImg[2].getAttribute("x")
+    var imgPosX = 0
+    var imgPosY = 0
 
+    if (e.x > eventDirectX) {
+        imgPosX = e.x - eventDirectX
+    } else {
+        imgPosX = e.x - eventDirectX
+    }
 
+    if (e.y < eventDirectY) {
+        imgPosY = e.y - eventDirectY
+    } else {
+        imgPosY = e.y - eventDirectY
+    }
 
+    eventDirectX = e.x;
+    eventDirectY = e.y;
 
-    clipImg[0].setAttribute("x", -mousex / 4 + 300)
-    clipImg[1].setAttribute("x", -mousex / 3 - 300)
+    clipImage.forEach(function (ele, index) {
 
-    clipImg[2].setAttribute("x", mousex / 50)
-    clipImg[3].setAttribute("x", mousex / 9 - 100)
+        imgPoseachX = imgPosX * 10 * ((index - 3) / 100);
+        imgPoseachY = imgPosY * 2 * ((index - 3) / 200);
 
-    clipImg[4].setAttribute("x", mousex / 8 - 400)
-    clipImg[5].setAttribute("x", mousex / 8 + 400)
+        var sourceX = parseFloat(ele.getAttribute("x"))
+        var sourceY = parseFloat(ele.getAttribute("y"))
 
-    clipImg[6].setAttribute("x", mousex / 7 + 0)
+        ele.setAttribute("x", sourceX + imgPoseachX);
+        ele.setAttribute("y", sourceY + imgPoseachY);
 
-    clipImg[7].setAttribute("x", mousex / 5 + 320)
-    clipImg[8].setAttribute("x", mousex / 5 - 320)
+    })
 
-
-    clipImg[9].setAttribute("x", mousex / 3 + 200)
-    clipImg[10].setAttribute("x", mousex / 2 - 200)
-
-
-
-
-
-
-
-}, false);
-
+});
 
 
 
@@ -389,8 +402,7 @@ function changePathText() {
 
     var classList = this.classList.value
 
-    console.log(classList.value)
-    console.log(typeof("classList"))
+
 
 
     if (classList.includes("menuprojects")) {
