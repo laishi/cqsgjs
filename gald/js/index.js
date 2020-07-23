@@ -31,9 +31,9 @@ function setpath(el) {
 
 function setNavPath(el) {
     el.setAttribute("stroke-width", strokeWidth);
-    el.setAttribute("stroke-linecap", "square");    
+    el.setAttribute("stroke-linecap", "square");
     el.setAttribute("d", curveBg.getAttribute("d").split(" V")[0])
-        
+
     // el.setAttribute("transform", "translate(0, " + -strokeWidth / 1 + ")");
 }
 
@@ -58,7 +58,7 @@ function headerImgCenter() {
 
     var jzimgH = jzimg.getAttribute("height")
 
-    jzimg.setAttribute("y", (window.innerHeight/2-jzimgH)/2)    
+    jzimg.setAttribute("y", (window.innerHeight / 2 - jzimgH) / 2)
 }
 
 
@@ -67,10 +67,10 @@ function checkBrower() {
 
     if (navigator.userAgent.indexOf("Android") > -1 || navigator.userAgent.indexOf("iPhone") > -1) {
 
-        
-        
+
+
         var menu = document.getElementsByClassName("menu")
-        var menuName = [ "项目", "服务", "首页", "流程", "联系"]
+        var menuName = ["项目", "服务", "首页", "流程", "联系"]
 
         for (let index = 0; index < menu.length; index++) {
             const element = menu[index];
@@ -78,12 +78,12 @@ function checkBrower() {
             element.children[1].innerHTML = menuName[index]
             element.style.width = "72px"
             element.style.height = "72px"
-            element.children[0].style.fontSize = "1.5rem" 
-            element.children[1].style.fontSize = "1rem" 
+            element.children[0].style.fontSize = "1.5rem"
+            element.children[1].style.fontSize = "1rem"
         }
 
         navToCurve(menus, 1.8)
-    }  
+    }
 }
 
 
@@ -94,8 +94,8 @@ function checkBrower() {
 function creatImgDots(params) {
     var girdImgs = document.querySelectorAll(".girdImgs")
 
- 
-    
+
+
 
     for (let index = 0; index < girdImgs.length; index++) {
         var element = girdImgs[index];
@@ -108,39 +108,39 @@ function creatImgDots(params) {
             var imgDot = document.createElement("div")
             imgDot.classList.add("imgDot")
             imgDots.append(imgDot)
-            
-            var dotImg = gridImg[i].style.backgroundImage  
+
+            var dotImg = gridImg[i].style.backgroundImage
             imgDot.style.backgroundImage = dotImg
 
             imgDot.addEventListener('click', function (event) {
                 event.stopPropagation()
 
-                var cardSliderImgs = this.parentElement.parentElement.children[0]                
+                var cardSliderImgs = this.parentElement.parentElement.children[0]
                 var cardSliderImg = cardSliderImgs.children
 
                 for (let index = 0; index < cardSliderImg.length; index++) {
                     var element = cardSliderImg[index];
-                    element.style.opacity = 0                    
+                    element.style.opacity = 0
                 }
-                
-                dotbgimg = this.style.backgroundImage.replace("small121x75", "middle1024x735")   
+
+                dotbgimg = this.style.backgroundImage.replace("small121x75", "middle1024x735")
 
 
                 cardSliderImgs.style.backgroundImage = dotbgimg
 
             }, false)
 
-    
+
         }
 
-        element.append(imgDots)        
+        element.append(imgDots)
     }
 
 }
 
 
 function createCardImg() {
-    
+
 
     var cardSlider = document.querySelectorAll(".cardSlider")
     for (let index = 0; index < cardSlider.length; index++) {
@@ -150,12 +150,12 @@ function createCardImg() {
 
         for (let i = 0; i < imgsrc.length; i++) {
             var imgurl = imgsrc[i];
-            
+
             var imgdiv = document.createElement("div")
             imgdiv.classList.add("card__img")
             imgdiv.style.backgroundImage = 'url(./' + imgurl + ')'
-            element.append(imgdiv)            
-        }        
+            element.append(imgdiv)
+        }
     }
 
 }
@@ -174,12 +174,12 @@ function createCardImg() {
 //             item.parentElement.firstChild
 
 
-            
+
 //             console.log("pos: " + pos)
 //             console.log("index: " + index)
 //         }
 //     })
-    
+
 // }, true);
 
 
@@ -188,15 +188,15 @@ function createCardImg() {
 const dock = document.getElementById("menus")
 dock.addEventListener('mousemove', e => {
 
-	let sum = 0
-	for (let c of dock.children) {
-		let { offsetLeft: x, clientWidth: w} = c
-		let val = Math.min(((1+Math.exp(-Math.abs(x-e.clientX+w/2)/72))*64|0)-64,32)
-		c.setAttribute('ratio', val)
-		sum += val
-	}
-	for (let c of dock.children)
-		c.style.width = c.style.height = (64 * (1 + c.getAttribute('ratio') / sum)) +'px'
+    let sum = 0
+    for (let c of dock.children) {
+        let { offsetLeft: x, clientWidth: w } = c
+        let val = Math.min(((1 + Math.exp(-Math.abs(x - e.clientX + w / 2) / 72)) * 64 | 0) - 64, 32)
+        c.setAttribute('ratio', val)
+        sum += val
+    }
+    for (let c of dock.children)
+        c.style.width = c.style.height = (64 * (1 + c.getAttribute('ratio') / sum)) + 'px'
 })
 
 
@@ -249,12 +249,30 @@ function reportWindowSize() {
 
 
 
+// var scroll = function() {
+//     requestAnimationFrame(scroll);
+
+
+
+//     console.log("scroll")
+// }
+
+// // Start the rendering loop function
+// scroll();
+
+
+
 
 
 var pageTip = document.querySelector(".pageTip")
 // onscroll
 
 var menuOffset = 0;
+
+
+var card = document.getElementsByClassName("card")
+
+
 
 
 window.addEventListener("scroll", function (e) {
@@ -264,8 +282,6 @@ window.addEventListener("scroll", function (e) {
     var newcurvevaule = (window.innerHeight / 2) - (scrollPos / 1)
 
     var menuOffsetScroll = Math.min(menuOffset + scrollPos / document.body.clientWidth, 0.3)
-
-
 
 
     // MENU 间距
@@ -279,7 +295,7 @@ window.addEventListener("scroll", function (e) {
 
         navToCurve(menus, 1 + scrollPos / 500)
 
-        if (navigator.userAgent.indexOf("Android") > -1 || navigator.userAgent.indexOf("iPhone") > -1){
+        if (navigator.userAgent.indexOf("Android") > -1 || navigator.userAgent.indexOf("iPhone") > -1) {
             navToCurve(menus, 1.8 + scrollPos / 500)
         }
 
@@ -401,9 +417,9 @@ var svgHeadInfo = document.querySelector(".svgHeadInfo")
 var textPath = document.querySelector(".textPath")
 function changeOpacity() {
 
-        textPath.style.opacity = 0
-        textPath.setAttribute("letter-spacing", "300")
-        svgHeadInfo.setAttribute("font-size", 24)
+    textPath.style.opacity = 0
+    textPath.setAttribute("letter-spacing", "300")
+    svgHeadInfo.setAttribute("font-size", 24)
 }
 
 function changePathText(event) {
@@ -421,39 +437,39 @@ function changePathText(event) {
     // font-size
 
     if (classList.includes("menuprojects")) {
-        
+
         textPath.innerHTML = "建筑夜景照明 / 城市景观照明 / 道路桥梁照明 / 商业家居照明 / 广场古建照明 / 迎春灯饰"
         textPath.style.opacity = 1
         textPath.setAttribute("letter-spacing", "3")
     }
 
     if (classList.includes("menuserver")) {
-        
+
         textPath.innerHTML = "用专业水平打动您 用敬业态度感动您"
         textPath.style.opacity = 1
         textPath.setAttribute("letter-spacing", "3")
     }
 
     if (classList.includes("menuhome")) {
-        
+
         textPath.innerHTML = "专注于照明设计  擅长在灯光设计  出色的灯饰设计"
         textPath.style.opacity = 1
         textPath.setAttribute("letter-spacing", "3")
     }
 
     if (classList.includes("menuflow")) {
-        
+
         textPath.innerHTML = "合理有序的流程设计  满足施工效益最大化"
         textPath.style.opacity = 1
         textPath.setAttribute("letter-spacing", "3")
     }
 
     if (classList.includes("menuabout")) {
-        
+
         textPath.innerHTML = "TEL: 13640566324   EMail: 504677424@qq.com"
         textPath.style.opacity = 1
         textPath.setAttribute("letter-spacing", "3")
-    }    
+    }
 }
 
 
