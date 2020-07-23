@@ -279,7 +279,7 @@ window.addEventListener("scroll", function (e) {
 
     var scrollPos = window.scrollY || window.pageYOffset // pageYOffset for ie
 
-    var newcurvevaule = (window.innerHeight / 2) - (scrollPos / 1)
+    var newcurvevaule = (window.innerHeight / 2) - (scrollPos / 1.8)
 
     var menuOffsetScroll = Math.min(menuOffset + scrollPos / document.body.clientWidth, 0.3)
 
