@@ -18,6 +18,11 @@ var menus = document.querySelector(".menus")
 var strokeWidth = 3
 
 
+menus.classList.add("showMenu")
+setTimeout(() => {
+}, 1000);
+
+
 // FUNCTIONS
 
 function setviewbox(el) {
@@ -40,7 +45,7 @@ function setNavPath(el) {
 function navToCurve(el, navSpace) {
 
     if (!navSpace) {
-        navSpace = 1   //0.6~2
+        navSpace = 0  //0.6~2
     }
 
 
@@ -48,6 +53,10 @@ function navToCurve(el, navSpace) {
     var navs = el.children;
     var navPathData = navPath.getAttribute("d")
     for (var index = 0; index < navs.length; index++) {
+        navs[index].style.top = "0px"
+        navs[index].style.left = "0px"
+        navs[index].style.opacity = 1
+        
         navs[index].style.offsetPath = "path('" + navPathData + "')"
         navs[index].style.offsetDistance = ((index * 10) * navSpace) + ((100 - (navs.length - 1) * navSpace * 10) / 2) + "%"
     }
@@ -163,26 +172,6 @@ function createCardImg() {
 
 
 
-// var menu = document.querySelectorAll(".menu")
-// menu.forEach(function (item, index) {
-
-//     item.addEventListener("mouseenter", function () {
-//         if (item.classList.value.split(" ")[0] == "menu") {
-
-//             var pos = parseFloat(item.getBoundingClientRect().left)
-
-//             item.parentElement.firstChild
-
-
-
-//             console.log("pos: " + pos)
-//             console.log("index: " + index)
-//         }
-//     })
-
-// }, true);
-
-
 
 
 const dock = document.getElementById("menus")
@@ -216,6 +205,13 @@ setpath(curveBg)
 setNavPath(navPath)
 
 navToCurve(menus)
+
+setTimeout(() => {
+    navToCurve(menus, 1)
+}, 1000);
+
+
+
 headerImgCenter()
 
 createCardImg()
