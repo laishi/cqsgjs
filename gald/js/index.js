@@ -170,29 +170,47 @@ function createCardImg() {
 }
 
 
-
-
-
-
-const dock = document.getElementById("menus")
-dock.addEventListener('mousemove', e => {
-
-    let sum = 0
-    for (let c of dock.children) {
-        let { offsetLeft: x, clientWidth: w } = c
-        let val = Math.min(((1 + Math.exp(-Math.abs(x - e.clientX + w / 2) / 72)) * 64 | 0) - 64, 32)
-        c.setAttribute('ratio', val)
-        sum += val
+function togglemenutransitionend(istransitionend) {
+    if (istransitionend) {
+        
+        for (let i = 0; i < menus.children.length; i++) {
+            const element = menus.children[i];
+            element.classList.add("menutransitionend")
+        }
+    } else {
+        for (let i = 0; i < menus.children.length; i++) {
+            const element = menus.children[i];
+            element.classList.remove("menutransitionend")
+        }
     }
-    for (let c of dock.children)
-        c.style.width = c.style.height = (64 * (1 + c.getAttribute('ratio') / sum)) + 'px'
-})
+}
 
 
 
 
+// const dock = document.getElementById("menus")
+// dock.addEventListener('mousemove', e => {
+//     console.log("yesend")
+//     let sum = 0
+//     for (let c of dock.children) {
+//         let { offsetLeft: x, clientWidth: w } = c
+//         let val = Math.min(((1 + Math.exp(-Math.abs(x - e.clientX + w / 2) / 72)) * 64 | 0) - 64, 32)
+//         c.setAttribute('ratio', val)
+//         sum += val
+//     }
+//     for (let c of dock.children)
+//         c.style.width = c.style.height = (64 * (1 + c.getAttribute('ratio') / sum)) + 'px'
+// })
 
 
+// MENUS MENU END
+
+// for (let i = 0; i < menus.children.length; i++) {
+//     const element = menus.children[i];
+//     element.addEventListener('transitionend', function () {
+//         element.style.transition = "width 0.3s, height 0.4s, opacity 1.8s ease-in-out"        
+//     })    
+// }
 
 
 
@@ -236,7 +254,7 @@ function reportWindowSize() {
     setviewbox(svgviewbox)
     setpath(curveBg)
     setNavPath(navPath)
-    navToCurve(menus)
+    navToCurve(menus,1)
 
     if (window.innerWidth < 1000) {
         navToCurve(menus, 1.8)
@@ -271,7 +289,20 @@ var card = document.getElementsByClassName("card")
 
 
 
+
 window.addEventListener("scroll", function (e) {
+
+
+        
+
+    togglemenutransitionend(true)
+
+    setTimeout(() => {
+        togglemenutransitionend(false)
+    }, 100);
+
+    
+
 
     var scrollPos = window.scrollY || window.pageYOffset // pageYOffset for ie
 
@@ -282,6 +313,8 @@ window.addEventListener("scroll", function (e) {
 
     // MENU 间距
 
+
+
     var scrollPath = "M 0 " + (window.innerHeight / 2 - 100) + " C 0 " + (window.innerHeight / 2 - 100) + " " + (document.body.clientWidth / 5) + " " + newcurvevaule + " " + (document.body.clientWidth / 2) + " " + newcurvevaule + " " + (document.body.clientWidth - document.body.clientWidth / 5) + " " + newcurvevaule + " " + document.body.clientWidth + " " + (window.innerHeight / 2 - 100) + " " + document.body.clientWidth + " " + (window.innerHeight / 2 - 100) + " V 0 H 0 Z"
 
     if (scrollPos >= 0 && scrollPos < window.innerHeight) {
@@ -289,10 +322,14 @@ window.addEventListener("scroll", function (e) {
         curveBg.setAttribute("d", scrollPath)
         navPath.setAttribute("d", scrollPath.split(" V")[0])
 
-        navToCurve(menus, 1 + scrollPos / 500)
+        navToCurve(menus, 1 + scrollPos / 1000)
 
-        if (navigator.userAgent.indexOf("Android") > -1 || navigator.userAgent.indexOf("iPhone") > -1) {
-            navToCurve(menus, 1.8 + scrollPos / 500)
+        if (window.innerWidth < 1000) {
+            navToCurve(menus, 1.8 + scrollPos / 1000);
+        }
+
+        if (navigator.userAgent.indexOf("Android") > -1 || navigator.userAgent.indexOf("iPhone" || window.innerWidth < 1000) > -1) {
+            navToCurve(menus, 1.8 + scrollPos / 1000)
         }
 
 
