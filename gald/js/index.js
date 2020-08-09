@@ -17,6 +17,14 @@ var menus = document.querySelector(".menus")
 
 var strokeWidth = 3
 
+var pathDath = {
+    leftTop: 0,
+    leftBottom: window.innerHeight / 2 - 100,
+    middleDotLeft: 0
+}
+
+// M(m) 0(leftTop) 595(leftBottom) C 0(middleDotLeft) 595 337.4 695 843.5 695 1349.6 695 1687 595 1687 595 V 0 H 0 Z
+
 
 menus.classList.add("showMenu")
 setTimeout(() => {
