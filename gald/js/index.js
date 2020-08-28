@@ -93,14 +93,15 @@ function checkBrower() {
             const element = menu[index];
 
             element.children[1].innerHTML = menuName[index]
-            element.style.width = "72px"
-            element.style.height = "72px"
+            element.style.width = "50px"
+            element.style.height = "50px"
             element.children[0].style.fontSize = "1.5rem"
             element.children[1].style.fontSize = "1rem"
         }
 
-        navToCurve(menus, 1.8)
+        navToCurve(menus, 1.0)
     }
+    navToCurve(menus, 1.0)
 }
 
 
@@ -265,7 +266,7 @@ function reportWindowSize() {
     navToCurve(menus,1)
 
     if (window.innerWidth < 1000) {
-        navToCurve(menus, 1.8)
+        checkBrower()
     }
 }
 
